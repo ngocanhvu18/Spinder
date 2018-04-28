@@ -15,6 +15,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
     
     var downloadTaskItem: DispatchWorkItem?
     
+    let urlImage = "http://thuthuatphanmem.vn/uploads/2017/11/05/hinh-nen-4k-dep-9_124944.jpg"
     override func viewDidLoad() {
         super.viewDidLoad()
         scrollView.minimumZoomScale = 1.0
@@ -31,7 +32,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
             activityIndicator.isHidden = false
             activityIndicator.transform = CGAffineTransform(scaleX: 5, y: 5)
             activityIndicator.startAnimating()
-            downLoadImage(from: "http://thuthuatphanmem.vn/uploads/2017/11/05/hinh-nen-4k-dep-9_124944.jpg") {[unowned self] image in
+            downLoadImage(from: urlImage) {[unowned self] image in
                 // stop spinner
                 sender.isEnabled = true
                 self.activityIndicator.stopAnimating()
@@ -39,6 +40,8 @@ class ViewController: UIViewController, UIScrollViewDelegate {
             }
         } else {
             imageView.image = nil
+                 // xoá bộ nhớ khi tràn dữ liệu
+            CacheImage.images.removeObject(forKey: urlImage as NSString)
         }
     }
     
